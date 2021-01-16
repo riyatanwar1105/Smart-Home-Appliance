@@ -1,0 +1,30 @@
+﻿#include <ESP8266WiFi.h>
+#include "ThingSpeak.h"
+
+const char* ssid     = "Wifi-ssid";
+const char* password = "WiFi-password";
+unsigned long myChannelNumber = 518154;
+const char * myReadAPIKey = "8E4YHZ98YA8VODNL";
+WiFiClient WiFiclient;
+
+void setup(){
+  Serial.begin(9600);
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("WiFi connected");  
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+  ThingSpeak.begin(WiFiclient);
+}
+ 
+void loop(){
+  String var;
+  var = ThingSpeak.readFloatField(myChannelNumber, 1, myReadAPIKey);
+  Serial.println("Value= " + var);
+  delay(5000);
+}
