@@ -1,0 +1,9 @@
+﻿void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.print("ETI ");
+  Serial.println("Labs");
+  delay(1000);
+}
